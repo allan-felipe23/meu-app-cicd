@@ -4,6 +4,7 @@ Pipeline completa de CI/CD usando AWS CodePipeline, CodeBuild e ECS.
 
 ## 📋 Arquitetura
 
+```text
 GitHub (Source)
 ↓ Webhook
 CodePipeline (Orquestracao)
@@ -14,6 +15,7 @@ CodePipeline (Orquestracao)
 ECS Cluster (produção)
 ├─ Container 1
 └─ Container 2
+```
 
 ---
 
@@ -64,49 +66,35 @@ curl http://localhost:5000
 ---
 Com Docker
 # Build
-docker build -t seu-app .
+docker build -t meu-app .
 
 # Run
 docker run -p 5000:5000 seu-app:latest
 
 # Test
 curl http://localhost:5000/health
-
+```
 ---
 
 📊 Monitoramento
-CloudWatch Logs: /ecs/seu-app
-
-CloudWatch Metrics: CPU, Memória, Requests
-
-SNS Alerts: Notificações de falhas
+- CloudWatch Logs: /ecs/seu-app
+- CloudWatch Metrics: CPU, Memória, Requests
+- SNS Alerts: Notificações de falhas
 
 🔄 Fluxo de Deploy
 Developer faz git push
 
-GitHub notifica CodePipeline
+- GitHub notifica CodePipeline
+- CodeBuild executa testes
+- Se tudo OK, faz Docker build
+- Push para ECR
+- CodeDeploy atualiza ECS
+- Nova versão em produção
+- Tudo automático em ~5 minutos!
 
-CodeBuild executa testes
-
-Se tudo OK, faz Docker build
-
-Push para ECR
-
-CodeDeploy atualiza ECS
-
-Nova versão em produção
-
-Tudo automático em ~5 minutos!
-
-📚 Documentação
-AWS CodePipeline
-
-AWS CodeBuild
-
-AWS ECS
 
 📝 License
 MIT
 
 👤 Autor
-Seu Nome - GitHub
+Allan Borge 
